@@ -6,6 +6,8 @@ import org.springframework.validation.DefaultMessageCodesResolver;
 import org.springframework.validation.MessageCodesResolver;
 import org.springframework.validation.ObjectError;
 
+import static org.assertj.core.api.Assertions.*;
+
 /**
  * packageName    : hello.validation
  * fileName       : MessageCodesResolverTest
@@ -24,7 +26,7 @@ public class MessageCodesResolverTest {
     @Test
     void messageCodesResolverObject(){
       String[] messageCodes =  codesResolver.resolveMessageCodes("required", "item");
-        Assertions.assertThat(messageCodes).containsExactly("required.item","required");
+        assertThat(messageCodes).containsExactly("required.item","required");
     }
 
     @Test
@@ -33,5 +35,12 @@ public class MessageCodesResolverTest {
         for (String messageCode : messageCodes) {
             System.out.println("messageCode = " + messageCode);
         }
+
+        assertThat(messageCodes).containsExactly(
+        "required.item.itemName",
+                "required.itemName",
+                "required.java.lang.String",
+                "required"
+        );
     }
 }
